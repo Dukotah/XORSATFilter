@@ -27,11 +27,11 @@ This package depends on pthreads and standard C math libraries.
 This project also relies on a few git submodules. To get these
 modules, clone the repository by doing either
 ```
-git clone --recursive git@github.com:NationalSecurityAgency/XORSATFilter.git
+git clone --recursive https://github.com/NationalSecurityAgency/XORSATFilter.git
 ```
 or
 ```
-git clone git@github.com:NationalSecurityAgency/XORSATFilter.git
+git clone https://github.com/NationalSecurityAgency/XORSATFilter.git
 cd XORSATFilter
 git submodule update --init --recursive
 ```
@@ -108,6 +108,12 @@ build time.
   3) `XORSATFilterFastParameters` creates filters quickly but
 the filters are larger.
 
+Each of these also has a `DW` variant (`XORSATFilterDWEfficientParameters`,
+`XORSATFilterDWPaperParameters`, and `XORSATFilterDWFastParameters`)
+that uses 2 literals per row, which activates a fast hashing method by
+Martin Dietzfelbinger and Stefan Walzer. The test uses
+`XORSATFilterDWPaperParameters`.
+
 More information can be found near the tops of
 `include/xorsat_filter.h` and `src/xorsat_blocks.c`. Feel free to
 define your own parameters to meet the needs of your application.
@@ -118,11 +124,13 @@ used when building the querier. The returned querier (`xsfq`) will be
 
 When finalizing, you will notice that the progress is printed to
 stderr. These print statements can be turned off by commenting out the
-following line in xorsat_filter.h and recompiling the package.
+following line in xorsat_filter.h and recompiling the package,
 
 ```
 #define XORSATFILTER_PRINT_BUILD_PROGRESS
 ```
+
+or by compiling the package with `-DXORSATFILTER_NO_PRINT_BUILD_PROGRESS`.
 
 After creating the querier, it is suggested that the builder be
 free'd, like so:
@@ -158,8 +166,8 @@ Queriers can be serialized (written to a file) in the following way:
   uint8_t ret = XORSATFilterSerialize(fout, xsfq);
 ```
 
-Here, `fout` is of type `FILE *`. `ret` will be `0` on failure and `1`
-on success.
+Here, `fout` is of type `FILE *`. `ret` will be `0` on success and `1`
+on failure.
 
 A querier can be deserialized (read from a file) in the following way:
 
@@ -193,6 +201,16 @@ consistency check) and prints statistics. To run the test type:
 ```
 $ make test/test && test/test
 ```
+
+To run the same test with its assertions enabled (the default build
+uses `-DNDEBUG`, which removes them), type:
+
+```
+$ make check
+```
+
+The test exits with a non-zero status if any original element is
+answered incorrectly or its metadata cannot be retrieved.
 
 
 FURTHER INFORMATION

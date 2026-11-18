@@ -59,8 +59,11 @@ extern XORSATFilterParameters XORSATFilterDWEfficientParameters;
 extern XORSATFilterParameters XORSATFilterDWPaperParameters;
 extern XORSATFilterParameters XORSATFilterDWFastParameters;
 
-//Comment out the following to silence progress updates in `XORSATFilterBuilderFinalize`
+//Comment out the following (or compile with -DXORSATFILTER_NO_PRINT_BUILD_PROGRESS)
+//to silence progress updates in `XORSATFilterBuilderFinalize`
+#ifndef XORSATFILTER_NO_PRINT_BUILD_PROGRESS
 #define XORSATFILTER_PRINT_BUILD_PROGRESS
+#endif
 
 typedef struct XORSATFilterBuilder {
   XORSATFilterHash_list pHashes;
