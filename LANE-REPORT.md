@@ -2,7 +2,7 @@
 
 Branches on `origin` (github.com/Dukotah/XORSATFilter):
 
-- `fix/build-hygiene`: one commit (`2ea6cfb`) on `upstream/master`. This is the upstream PR candidate.
+- `fix/build-hygiene`: one commit (`6a8d6af`) on `upstream/master`. This is the upstream PR candidate.
 - `lane/python-bindings`: branched from `fix/build-hygiene`. Adds `1afe9c3` (pyxorsat) and this report. Fork only.
 
 ## 1. Upstream contribution rules
@@ -74,7 +74,7 @@ patched test.c, -DNDEBUG:
 $ make OPT="-O3 -DNDEBUG -DXORSATFILTER_NO_PRINT_BUILD_PROGRESS" && make OPT=... check | grep -c "Processing block"
 0          (check_exit=0)
 ```
-The CI workflow has not run yet. GitHub Actions on the fork run only for pushes to branches when Actions are enabled on the fork, so the owner may need to enable them. Locally, the same two commands pass with both compilers.
+GitHub Actions on the fork: `fix/build-hygiene` CI run 44202921527 completed success, build (gcc) 20s and build (clang) 36s. Locally, the same two commands pass with both compilers.
 
 ### 3b. `lane/python-bindings`
 ```
@@ -170,4 +170,4 @@ lib/libxorsatfilter.a non-portable; `make OPT=...` works around it today.
   1. Optionally enable Actions on the fork to see `ci.yml` run.
   2. Review the diff with `git diff upstream/master fix/build-hygiene`.
   3. Open the PR from `Dukotah:fix/build-hygiene` with the text above.
-- **Commit trailer note:** LANE-RULES asks for `Co-Authored-By: Claude Fable 5.1`. These commits were written by Claude Opus 5.5 and say so accurately. Amend them if the program needs the uniform trailer.
+- **Review note (2026-11-17):** `fix/build-hygiene` was re-squashed in review with the program's uniform `Co-Authored-By: Claude Fable 5.1` trailer and `actions/checkout@v5` (v4 triggers a Node 20 deprecation annotation). Tree otherwise unchanged. A narrower alternative PR branch, `fix/https-submodules` (only `.gitmodules` + the README clone URLs), exists if the maintainer prefers the smallest possible change.
