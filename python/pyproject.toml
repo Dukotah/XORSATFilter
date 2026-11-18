@@ -1,0 +1,26 @@
+[build-system]
+requires = ["setuptools>=77", "cffi>=1.16"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pyxorsat"
+version = "0.1.0"
+description = "Python (cffi) bindings for the XORSATFilter C library: static k-XORSAT set-membership filters and dictionaries"
+readme = "README.md"
+requires-python = ">=3.9"
+license = "CC0-1.0"
+dependencies = ["cffi>=1.16"]
+classifiers = [
+    "Programming Language :: C",
+    "Programming Language :: Python :: 3",
+    "Operating System :: POSIX :: Linux",
+]
+
+[project.optional-dependencies]
+test = ["pytest"]
+
+[tool.setuptools]
+packages = ["pyxorsat"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

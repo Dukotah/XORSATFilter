@@ -1,0 +1,9 @@
+pyxorsat/_csrc/
+pyxorsat/_xorsat*.so
+pyxorsat/_xorsat.c
+pyxorsat/_xorsat.o
+build/
+dist/
+*.egg-info/
+__pycache__/
+.venv/
